@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import XLSX from 'xlsx';
+import * as chart_values from './data.json';
 
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Toast from "react-bootstrap/Toast";
@@ -15,7 +16,7 @@ import "./App.css"
 
 const StrategiesDropdown = ({ children }) => {
     const [show, toggleShow] = React.useState(true);
-
+    console.log(chart_values);
     return (
         <>
             <Dropdown>
