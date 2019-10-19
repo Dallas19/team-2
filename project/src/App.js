@@ -31,6 +31,7 @@ function handleChange(strat) {
     for(var i = 0; i < strategies.length; i++) {
         if(strategies[i] == strategy) {
             window.location.replace('#/action-' + i);
+            window.location.reload();
         }
     }    
 }
