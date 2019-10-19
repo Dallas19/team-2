@@ -47,7 +47,8 @@ function handleChangeP(program) {
     }
     for(var i = 0; i < programs.length; i++) {
         if(programs[i] == program) {
-            window.location.replace('#/action-' + strat + '000' + i);
+            window.location.replace('#/action-' + strat + '8008' + i);
+            window.location.reload();
         }
     }
 }
@@ -64,8 +65,8 @@ const StrategiesDropdown = ({ children }) => {
     programTargetMet = '';
     var pdata;
     // now, we need to do the program matching as well
-    if((url.includes('000'))) {
-        var split = url.split('000');
+    if((url.includes('8008'))) {
+        var split = url.split('8008');
         strategy = strategies[parseInt(split[0])];
         // SOME GET PROGRAMS THING
         programs = getPrograms();
@@ -136,19 +137,19 @@ const StrategiesDropdown = ({ children }) => {
                 <VictoryChart 
                     width = {500}
                     domainPadding = {25} theme={VictoryTheme.material} 
-                    horizontal = {true}
+                    horizontal = {false}
 
                 >
                     <VictoryAxis
-                        tickValues={["Jul 19", "Aug 19", "Sep 19", "Total", "Target", "Proj"]}
+                        tickValues={["Jul 19", "Aug 19", "Sep 19", "Total", "Target", "Projected"]}
                     />
                     <VictoryAxis
                     dependentAxis
-                    tickFormat={(x) => `${x} people`}
+                    tickFormat={(x) => `${x}`}
                     />
                     <VictoryBar
                     data={data}
-                    labels={({ datum }) => `y: ${datum.people}`}
+                    labels={({ datum }) => `${datum.people}`}
                     x={"point"}
                     y={"people"}
                     
@@ -164,19 +165,19 @@ const StrategiesDropdown = ({ children }) => {
                  <h1 className="program-needs-help">{programTargetMet}</h1>
                  <VictoryChart 
                     width = {500}
-                    domainPadding = {25} theme={VictoryTheme.material} 
-                    horizontal = {true}
+                    domainPadding = {25} theme={VictoryTheme.material}
                 >
                     <VictoryAxis
-                        tickValues={["Jul 19", "Aug 19", "Sep 19", "Total", "Target", "Proj"]}
+                        tickValues={["Jul 19", "Aug 19", "Sep 19", "Total", "Target", "Projected"]}
                     />
                     <VictoryAxis
                     dependentAxis
-                    tickFormat={(x) => `${x} people`}
+                    tickFormat={(x) => `${x}`}
+
                     />
                     <VictoryBar
                     data={pdata}
-                    labels={({ datum }) => `y: ${datum.people}`}
+                    labels={({ datum }) => `${datum.people}`}
                     x={"point"}
                     y={"people"}
 
@@ -260,8 +261,19 @@ function getProgramCount() {
         }
     }
     totalCount = (julyCount + augustCount + septCount);
-    var projected =  Math.round(11.0 * ((septCount - augustCount) + (augustCount - julyCount)) / 2.0 + julyCount);
+    var firstMont = augustCount - julyCount;
+    var secondMont = septCount - augustCount;
+    var projected = 0;
+    if(firstMont < 0 && secondMont < 0) projected = 0;
+    else if(firstMont < 0) projected += secondMont;
+    else if(secondMont < 0) projected += firstMont;
+    else {
+        projected = ((firstMont + secondMont) / 2.0);
+    }
     if(projected < 0) projected = 0;
+    else {
+        projected =  12* Math.round(projected) + julyCount;
+    }
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
 }
 
