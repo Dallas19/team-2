@@ -177,6 +177,7 @@ const StrategiesDropdown = ({ children }) => {
                     />
                     <VictoryBar
                     data={pdata}
+                    style={{ data: { fill: "tomato", width: 25 } }}
                     labels={({ datum }) => `${datum.people}`}
                     x={"point"}
                     y={"people"}
@@ -233,8 +234,8 @@ function getStrategyCount() {
         }
     }
     var totalCount = (julyCount + augustCount + septCount);
-    var projected =  Math.round(11.0 * ((septCount - augustCount) + (augustCount - julyCount)) / 2.0 + julyCount);
-    if(projected < 0) projected = 0;
+    var avg = Math.round((septCount + augustCount + julyCount) / 3.0);
+    var projected = 12 * avg;
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
 }
 
@@ -261,19 +262,8 @@ function getProgramCount() {
         }
     }
     totalCount = (julyCount + augustCount + septCount);
-    var firstMont = augustCount - julyCount;
-    var secondMont = septCount - augustCount;
-    var projected = 0;
-    if(firstMont < 0 && secondMont < 0) projected = 0;
-    else if(firstMont < 0) projected += secondMont;
-    else if(secondMont < 0) projected += firstMont;
-    else {
-        projected = ((firstMont + secondMont) / 2.0);
-    }
-    if(projected < 0) projected = 0;
-    else {
-        projected =  12* Math.round(projected) + julyCount;
-    }
+    var avg = Math.round((septCount + augustCount + julyCount) / 3.0);
+    var projected = 12 * avg;
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
 }
 
