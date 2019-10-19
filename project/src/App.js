@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import XLSX from 'xlsx';
 import * as chart_values from './data.json';
+import logo_ from './img/logo_small.png'
 
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Toast from "react-bootstrap/Toast";
@@ -42,7 +43,10 @@ const StrategiesDropdown = ({ children }) => {
 const App = () => (
     <Container className="p-3">
         <Jumbotron fluid>
-            <h1 className="header">United Way of San Antonio</h1>
+            <h1 className="header">United Way of San Antonio
+                <img src={logo_} alt="Logo"/>
+            </h1>
+        
         </Jumbotron>
         <StrategiesDropdown className="dropdown-strategies">
             Strategies

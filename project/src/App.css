@@ -7,7 +7,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #295dc5;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,13 +22,14 @@
 }
 
 .header {
+  background-color: darkblue;
+  color: antiquewhite;
   font-size: 35px;
-  text-align: left;
+  text-align: center;
   padding-left: 35px;
 }
 
 .dropdown-strategies {
-
   margin: 0 auto;
 }
 
