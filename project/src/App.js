@@ -27,7 +27,6 @@ var data = [];
 
 
 function handleChange(strat) {
-    console.log(strat.option);
     strategy = strat.option; 
     for(var i = 0; i < strategies.length; i++) {
         if(strategies[i] == strategy) {
@@ -37,7 +36,6 @@ function handleChange(strat) {
 }
 
 function handleChangeP(program) {
-    console.log(program.option);
     program = program.option; 
     var strat = 0;
     for(var i = 0; i < strategies.length; i++) {
@@ -70,7 +68,6 @@ const StrategiesDropdown = ({ children }) => {
         strategy = strategies[parseInt(split[0])];
         // SOME GET PROGRAMS THING
         programs = getPrograms();
-        console.log(programs);
         program = programs[parseInt(split[1])];
         var programTargetMet = "Currently on pace to meet target";
         var pvals = getProgramCount();
@@ -91,7 +88,6 @@ const StrategiesDropdown = ({ children }) => {
             {point: 5, people: ptotalTarget},
             {point: 6, people: pprojected}
         ];
-        console.log(pdata);
     }
     else {
         strategy = strategies[parseInt(url)];
@@ -118,8 +114,6 @@ const StrategiesDropdown = ({ children }) => {
         {point: 6, people: projected}
     ];
 
-    //console.log(data);
-    console.log(programs);
     return (
         <>
             <h1 className="Select Strategy">Select Strategy</h1>
@@ -153,8 +147,10 @@ const StrategiesDropdown = ({ children }) => {
                     />
                     <VictoryBar
                     data={data}
+                    labels={({ datum }) => `y: ${datum.people}`}
                     x={"point"}
                     y={"people"}
+                    
                     animate={{
                         duration: 2000,
                         onLoad: { duration: 1000 }
@@ -179,12 +175,15 @@ const StrategiesDropdown = ({ children }) => {
                     />
                     <VictoryBar
                     data={pdata}
+                    labels={({ datum }) => `y: ${datum.people}`}
                     x={"point"}
                     y={"people"}
+
                     animate={{
                         duration: 2000,
                         onLoad: { duration: 1000 }
                     }}
+
                     />
                 </VictoryChart>
              </div>
@@ -277,10 +276,7 @@ function getStrategies() {
 function getPrograms() {
     var set = new Set();
     for(var i = 0; i < json.length; i++) {
-        console.log(json[i]['Strategy_Name']);
-        console.log(strategy);
         if(json[i]['Strategy_Name'] == strategy) {
-            console.log("i get here");
             set.add(json[i]['Program_Name']);
         }
     }
