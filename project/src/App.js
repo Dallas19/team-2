@@ -61,16 +61,18 @@ const StrategiesDropdown = ({ children }) => {
 
     var url = window.location.href;
 
-    url = url.replace('http://localhost:3000/#/action-', '');
+    url = url.replace('http://localhost:3000/internal#/action-', '');
     programTargetMet = '';
     var pdata;
     // now, we need to do the program matching as well
     if((url.includes('8008'))) {
         var split = url.split('8008');
         strategy = strategies[parseInt(split[0])];
+        console.log(strategy);
         // SOME GET PROGRAMS THING
         programs = getPrograms();
         program = programs[parseInt(split[1])];
+        console.log(program);
         var programTargetMet = "Currently on pace to meet target";
         var pvals = getProgramCount();
         var pjulyCount = pvals[0];
@@ -90,6 +92,7 @@ const StrategiesDropdown = ({ children }) => {
             {point: 5, people: ptotalTarget},
             {point: 6, people: pprojected}
         ];
+        console.log(pdata);
     }
     else {
         strategy = strategies[parseInt(url)];
@@ -177,7 +180,6 @@ const StrategiesDropdown = ({ children }) => {
                     />
                     <VictoryBar
                     data={pdata}
-                    style={{ data: { fill: "tomato", width: 25 } }}
                     labels={({ datum }) => `${datum.people}`}
                     x={"point"}
                     y={"people"}
@@ -234,8 +236,8 @@ function getStrategyCount() {
         }
     }
     var totalCount = (julyCount + augustCount + septCount);
-    var avg = Math.round((septCount + augustCount + julyCount) / 3.0);
-    var projected = 12 * avg;
+    var projected =  Math.round(11.0 * ((septCount - augustCount) + (augustCount - julyCount)) / 2.0 + julyCount);
+    if(projected < 0) projected = 0;
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
 }
 
@@ -246,7 +248,8 @@ function getProgramCount() {
     var augustCount = 0;
     var septCount = 0;
     for(var i = 0; i < json.length; i++) {
-        if(json[i]['Investment'] == strategy && json[i]['Program_Name'] == program) {
+        if(json[i]['Strategy_Name'] == strategy && json[i]['Program_Name'] == program) {
+            console.log('found one');
             if(json[i]["Unique Count July 2019"] != "") {
                 julyCount += json[i]["Unique Count July 2019"];
             } 
@@ -262,8 +265,19 @@ function getProgramCount() {
         }
     }
     totalCount = (julyCount + augustCount + septCount);
-    var avg = Math.round((septCount + augustCount + julyCount) / 3.0);
-    var projected = 12 * avg;
+    var firstMont = augustCount - julyCount;
+    var secondMont = septCount - augustCount;
+    var projected = 0;
+    if(firstMont < 0 && secondMont < 0) projected = 0;
+    else if(firstMont < 0) projected += secondMont;
+    else if(secondMont < 0) projected += firstMont;
+    else {
+        projected = ((firstMont + secondMont) / 2.0);
+    }
+    if(projected < 0) projected = 0;
+    else {
+        projected =  12* Math.round(projected) + julyCount;
+    }
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
 }
 
