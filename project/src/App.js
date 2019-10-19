@@ -11,6 +11,8 @@ import Button from "react-bootstrap/Button"
 import Dropdown from "react-bootstrap/Dropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import { VictoryBar,VictoryChart,VictoryAxis,VictoryTheme } from 'victory';
+
 
 import "./App.css"
 
@@ -22,6 +24,9 @@ const StrategiesDropdown = ({ children }) => {
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     Strategies
+                    <span role="img" aria-label="tada">
+                        🎉
+                    </span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -41,14 +46,36 @@ const App = () => (
         </Jumbotron>
         <StrategiesDropdown className="dropdown-strategies">
             Strategies
-            <span role="img" aria-label="tada">
-          🎉
-        </span>
         </StrategiesDropdown>
         <Container className="graphContainer">
-            <h1>--Insert Graph Here--</h1>
+            <div>
+                <VictoryChart domainPadding = {50} theme={VictoryTheme.material}>
+                    <VictoryAxis
+                        tickValues={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
+                    />
+                    <VictoryAxis
+                    dependentAxis
+                    tickFormat={(x) => (`$${x / 1000}k`)}
+                    />
+                    <VictoryBar
+                    data={data}
+                    x={"quarter"}
+                    y={"earnings"}
+                    />
+                </VictoryChart>
+             </div>
+
         </Container>
     </Container>
 );
+
+const data = [
+    {quarter: 1, earnings: 13000},
+    {quarter: 2, earnings: 16500},
+    {quarter: 3, earnings: 14250},
+    {quarter: 4, earnings: 19000}
+  ];
+  
+  
 
 export default App;
