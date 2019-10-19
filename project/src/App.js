@@ -18,13 +18,17 @@ const ExampleToast = ({ children }) => {
 
     return (
         <>
-            {!show && <Button onClick={() => toggleShow(true)}>Internal View</Button>}
-            <Toast show={show} onClose={() => toggleShow(false)}>
-                <Toast.Header>
-                    <strong className="mr-auto">Strategies</strong>
-                </Toast.Header>
-                <Toast.Body>{children}</Toast.Body>
-            </Toast>
+            <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Strategies
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Strategy One</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Strategy Two</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Strategy Three</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
         </>
     );
 };
