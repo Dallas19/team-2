@@ -44,6 +44,9 @@ const App = () => (
           🎉
         </span>
         </StrategiesDropdown>
+        <Container className="graphContainer">
+            <h1>--Insert Graph Here--</h1>
+        </Container>
     </Container>
 );
 
