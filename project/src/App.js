@@ -122,21 +122,22 @@ const StrategiesDropdown = ({ children }) => {
     console.log(programs);
     return (
         <>
-            <h1 className="Select Strategy">{targetMet}</h1>
+            <h1 className="Select Strategy">Select Strategy</h1>
             <PowerSelect
                 options={strategies}
                 selected={strategy}
                 onChange={handleChange}
             />
+            <h1 className="Select Program">Select Program</h1>
             <PowerSelect
                 options={programs}
                 selected={program}
                 onChange={handleChangeP}
             />
-            <h1 className="needs-help">{targetMet}</h1>
             <Container className="graphContainer">
             <div>
                 <h1>Strategy Chart</h1>
+                <h1 className="needs-help">{targetMet}</h1>
                 <VictoryChart 
                     width = {500}
                     domainPadding = {25} theme={VictoryTheme.material} 
@@ -161,14 +162,13 @@ const StrategiesDropdown = ({ children }) => {
                     />
                 </VictoryChart>
              </div>
-             <h1 className="program-needs-help">{programTargetMet}</h1>
              <div>
                  <h1>Program Chart</h1>
+                 <h1 className="program-needs-help">{programTargetMet}</h1>
                  <VictoryChart 
                     width = {500}
                     domainPadding = {25} theme={VictoryTheme.material} 
                     horizontal = {true}
-
                 >
                     <VictoryAxis
                         tickValues={["Jul 19", "Aug 19", "Sep 19", "Total", "Target", "Proj"]}
@@ -233,6 +233,7 @@ function getStrategyCount() {
     }
     var totalCount = (julyCount + augustCount + septCount);
     var projected =  Math.round(11.0 * ((septCount - augustCount) + (augustCount - julyCount)) / 2.0 + julyCount);
+    if(projected < 0) projected = 0;
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
 }
 
@@ -260,6 +261,7 @@ function getProgramCount() {
     }
     var totalCount = (julyCount + augustCount + septCount);
     var projected =  Math.round(11.0 * ((septCount - augustCount) + (augustCount - julyCount)) / 2.0 + julyCount);
+    if(projected < 0) projected = 0;
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
 }
 
