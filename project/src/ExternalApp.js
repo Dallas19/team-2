@@ -73,16 +73,19 @@ const ImpactDropdown = ({ children }) => {
 
     var url = window.location.href;
 
-    url = url.replace('http://localhost:3000/#/action-', '');
+    url = url.replace('http://localhost:3000/external#/action-', '');
     var InvestTargetMet = '';
     var target = '';
     var idata;
     var split = url.split('8008');
+
     
 
     // Impacts
     if(parseInt(split[0]) != 4) {
+        console.log(split[0]);
         impactArea = impacts[parseInt(split[0])];
+        console.log(impactArea);
         var targetMet = "Currently on pace to meet target";
         var vals = getImpactCount();
         var julyCount = vals[0];
@@ -103,6 +106,7 @@ const ImpactDropdown = ({ children }) => {
             {point: 5, people: totalTarget},
             {point: 6, people: projected}
         ];
+        console.log(data);
     }
     investments = getInvestment();
     // Investments
@@ -158,8 +162,6 @@ const ImpactDropdown = ({ children }) => {
                     />
                     <VictoryBar
                     data={data}
-                    //labels={people => d.y}
-                    //labels={({ data }) => `y: ${data.peple}`}
                     labels={({ datum }) => `${datum.people}`}
                     x={"point"}
                     y={"people"}
