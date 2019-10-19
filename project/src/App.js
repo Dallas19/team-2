@@ -13,7 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css"
 
-const ExampleToast = ({ children }) => {
+const StrategiesDropdown = ({ children }) => {
     const [show, toggleShow] = React.useState(true);
 
     return (
@@ -35,15 +35,15 @@ const ExampleToast = ({ children }) => {
 
 const App = () => (
     <Container className="p-3">
-        <Jumbotron>
-            <h1 className="header">United Way</h1>
-            <ExampleToast className="toast">
-                Strategies
-                <span role="img" aria-label="tada">
+        <Jumbotron fluid>
+            <h1 className="header">United Way of San Antonio</h1>
+        </Jumbotron>
+        <StrategiesDropdown className="dropdown-strategies">
+            Strategies
+            <span role="img" aria-label="tada">
           🎉
         </span>
-            </ExampleToast>
-        </Jumbotron>
+        </StrategiesDropdown>
     </Container>
 );
 
