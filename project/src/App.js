@@ -12,8 +12,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { VictoryBar,VictoryChart,VictoryAxis,VictoryTheme } from 'victory';
-import { PowerSelect } from 'react-power-select'
- import 'react-power-select/dist/react-power-select.css'
+import { PowerSelect } from 'react-power-select';
+ import 'react-power-select/dist/react-power-select.css';
 
 import "./App.css";
 
@@ -189,6 +189,7 @@ const StrategiesDropdown = ({ children }) => {
              </div>
 
         </Container>
+        
         </>
     );
 };
@@ -203,7 +204,6 @@ const App = () => (
         <StrategiesDropdown className="dropdown-strategies">
             Strategies
         </StrategiesDropdown>
-        
     </Container>
 );
   
@@ -243,7 +243,7 @@ function getProgramCount() {
     var augustCount = 0;
     var septCount = 0;
     for(var i = 0; i < json.length; i++) {
-        if(json[i]['Strategy_Name'] == strategy && json[i]['Program_Name'] == program) {
+        if(json[i]['Investment'] == strategy && json[i]['Program_Name'] == program) {
             if(json[i]["Unique Count July 2019"] != "") {
                 julyCount += json[i]["Unique Count July 2019"];
             } 
