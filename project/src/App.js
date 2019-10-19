@@ -1,8 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import XLSX from 'xlsx';
 
 function App() {
+  var data = XLSX.utils.sheet_to_json();
+
   return (
     <div className="App">
       <header className="App-header">
