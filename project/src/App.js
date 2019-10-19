@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import XLSX from 'xlsx';
 import * as chart_values from './data.json';
-import logo_ from './img/logo_small.png'
 
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Toast from "react-bootstrap/Toast";
@@ -22,19 +21,22 @@ var json = require('./data.json'); //(with path)
 var strategy = '';
 
 var strategies;
-var strategy;
+//var strategy;
 
 
 function handleChange(strat) {
     console.log(strat.option);
     strategy = strat.option; 
+    for(var i = 0; i < strategies.length; i++) {
+        if(strategies[i] == strategy) {
+            window.location.replace('#/action-' + i);
+        }
+    }    
 }
 
 const StrategiesDropdown = ({ children }) => {
-    //const [show, toggleShow] = React.useState(true);
-    const [strategy] = React.useState("");
-    
-    setStrategy()
+    const [show, toggleShow] = React.useState(true);
+    //const [strategy] = React.useState("");
 
     var targetMet = "Currently on pace to meet target";
     var vals = getStrategyCount('hello!');
@@ -44,41 +46,20 @@ const StrategiesDropdown = ({ children }) => {
     if(projected < totalTotal) {
         targetMet = "Currently NOT on pace to meet target";
     }
-    console.log(targetMet);
-    console.log(chart_values);
-    console.log('strategies');
     
     strategies = getStrategies();
 
-    function setStrategy(state, action) {
-        this.strategy = state;
-    }
+    var url = window.location.href;
+    url = url.replace('http://localhost:3000/#/action-', '');
+    strategy = strategies[parseInt(url)];
 
     return (
         <>
-            {/* <PowerSelect
-                options={strategies}
-            /> */}
             <PowerSelect
                 options={strategies}
-                selected={this.strategy}
-                onChange={setStrategy}
+                selected={strategy}
+                onChange={handleChange}
             />
-            {/* <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Strategies
-                    <span role="img" aria-label="tada">
-                        🎉
-                    </span>
-                </Dropdown.Toggle>
-                
-                <Dropdown.Menu>
-                    
-                    {/* <Dropdown.Item href="#/action-1">Strategy One</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Strategy Two</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Strategy Three</Dropdown.Item> */}
-                {/* </Dropdown.Menu> */}
-            {/* </Dropdown> */} 
         </>
     );
 };
@@ -86,10 +67,7 @@ const StrategiesDropdown = ({ children }) => {
 const App = () => (
     <Container className="p-3">
         <Jumbotron fluid>
-            <h1 className="header">United Way of San Antonio
-                <img src={logo_} alt="Logo"/>
-            </h1>
-        
+            <h1 className="header">United Way of San Antonio</h1>
         </Jumbotron>
 
         
