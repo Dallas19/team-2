@@ -32,7 +32,7 @@ const ExampleToast = ({ children }) => {
 const App = () => (
     <Container className="p-3">
         <Jumbotron>
-            <h1 className="header">United Way of San Antonio</h1>
+            <h1 className="header">United Way</h1>
             <ExampleToast className="toast">
                 Strategies
                 <span role="img" aria-label="tada">
