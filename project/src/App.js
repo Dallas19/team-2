@@ -259,7 +259,7 @@ function getProgramCount() {
             } 
         }
     }
-    var totalCount = (julyCount + augustCount + septCount);
+    totalCount = (julyCount + augustCount + septCount);
     var projected =  Math.round(11.0 * ((septCount - augustCount) + (augustCount - julyCount)) / 2.0 + julyCount);
     if(projected < 0) projected = 0;
     return[julyCount, augustCount, septCount, totalCount, totalTarget, projected];
