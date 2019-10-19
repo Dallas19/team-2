@@ -20,7 +20,7 @@ for rownum in range(1, sh.nrows):
     data['Strategy_Name'] = row_values[15]
     data['Outcome_Indicator_Type_Name'] = row_values[17]
     data['Outcome_Indicator_Name'] = row_values[20]
-    data['Unique Count Julyy 2019'] = row_values[24]
+    data['Unique Count July 2019'] = row_values[24]
     data['Unique Count August 2019'] = row_values[25]
     data['Unique Count September 2019'] = row_values[26]
     data['Annual Target (if applicable)'] = row_values[27]
